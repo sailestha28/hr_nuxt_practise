@@ -1,5 +1,4 @@
 <template>
-  <div>
-    <NuxtWelcome />
+  <div>{{ $t('hello') }}
   </div>
 </template>
