@@ -1,5 +1,5 @@
 <script setup>
-const {availableLocales} = useI18n()
+import LanguageSwitch from "~/components/Header/LanguageSwitch.vue";
 
 </script>
 
@@ -7,14 +7,9 @@ const {availableLocales} = useI18n()
   <div>
 
     <form class="flex flex-col">
-      <NuxtLink
-        v-for="item in availableLocales"
-        :key="item"
-        :to="`/`+(item ==='en'?'':item)"
-      >
-        {{ item }}
-      </NuxtLink>
-
+      <div class="jb-w--10">
+      <LanguageSwitch/>
+</div>
       <p>{{ $t('hello') }}</p>
     </form>
   </div>

@@ -1,5 +1,5 @@
-import en from './locales/en.json'
-import jp from './locales/jp.json'
+import en from './locales/en-EN.json'
+import jp from './locales/jp-JP.json'
 
 const availableLocales = {
     en: en,
@@ -22,7 +22,7 @@ export default defineI18nConfig(() => ({
             code: "jp",
             name:"Japan",
             iso: 'jp-JP',
-            file: 'jp.json'
+            file: 'jp-JP.json'
         }
     ],
     defaultLocale: 'en',
