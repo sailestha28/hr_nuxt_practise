@@ -53,7 +53,7 @@
                 </div>
                 <div class="mt-6 flow-root">
                   <div class="-my-6 divide-y divide-gray-500/10">
-                    <div class="space-y-2 py-6">
+                    <div class="space-y-2 py-6 flex flex-col">
                       <NuxtLink
                           v-for="item in navigation"
                           :key="item.name"
@@ -61,6 +61,9 @@
                           $t(item.name)
                         }}
                       </NuxtLink>
+                        <div class="flex gap-2 items-center">
+                  <LangSwitcher/>
+                </div>
                     </div>
                   </div>
                 </div>

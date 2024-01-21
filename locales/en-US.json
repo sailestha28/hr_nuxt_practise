@@ -1,4 +1,86 @@
 {
-      "home": "Home",
-    "about": "About"
+  "home": "Home",
+  "about": "About",
+  "get_started": "Get started",
+  "learn_more": "Learn more",
+  "read_more": "Read more",
+  "contact_person": "Contact Person",
+  "admin": "Admin",
+  "email": "Email",
+  "call": "Call",
+  "testimonials": "Testimonials",
+  "faq": "Frequently asked questions",
+  "solutions": "Solutions",
+  "support": "Support",
+  "legal": "Legal",
+  "subscribe_to_our_newsletter": "Subscribe to our newsletter",
+  "subscribe": "Subscribe",
+  "enter_your_email": "Enter your email",
+  "banner": {
+    "title": "Data to enrich your online business",
+    "description": "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.",
+    "announcement_title": " Announcing our next round of funding. "
+  },
+  "newsletter_description": "The latest news, articles, and resources, sent to your inbox weekly.\n Email address",
+  "add_to_favorites": "Add to favorites",
+  "embed": "Embed",
+  "report_content": "Report content",
+  "open_options": "Open options",
+  "team": "team",
+  "customer_support": " customer support",
+  "cant_find_answer": "Can’t find the answer you’re looking for? Reach out to our",
+  "marketing": "Marketing",
+  "analytics": "Analytics",
+  "commerce": "Commerce",
+  "insights": "Insights",
+  "pricing": "Pricing",
+  "documentation": "Documentation",
+  "guides": "Guides",
+  "api_status": "API Status",
+  "blog": "Blog",
+  "jobs": "Jobs",
+  "press": "Press",
+  "partners": "Partners",
+  "claim": "Claim",
+  "privacy": "Privacy",
+  "terms": "Terms",
+  "facebook": "Facebook",
+  "the_latest_news_articles_and_resources": "The latest news, articles, and resources, sent to your inbox weekly.",
+  "email_address": "Email address",
+  "company": "Company",
+  "user": "User",
+  "language": "Language",
+  "about_page": {
+    "title": "We’re changing the way people connect.",
+    "description": "Cupidatat minim id magna ipsum sint dolor qui. Sunt sit in quis cupidatat mollit aute velit. Et labore commodo nulla aliqua proident mollit ullamco exercitation tempor. Sint aliqua anim nulla sunt mollit id pariatur in voluptate cillum. Eu voluptate tempor esse minim amet fugiat veniam occaecat aliqua.",
+    "blogs": {
+      "title": "From the blog",
+      "description": " Vel dolorem qui facilis soluta sint aspernatur totam cumque."
+    }
+  },
+  "our_mission": {
+    "title": "Our mission",
+    "sub_title": "Aliquet nec orci mattis amet quisque ullamcorper neque, nibh                sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam                nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien.",
+    "description": " <p>Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed                  amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit                  neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis                  mauris semper sed amet vitae sed turpis id.</p>                <p class='mt-10'>Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit                  molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et                  ultrices hac adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.</p>"
+  },
+  "stats": {
+    "transactions_every_24_hours": "Transactions every 24 hours",
+    "assets_under_holding": "Assets under holding",
+    "new_users_annually":"New users annually"
+  },
+  "our_values": {
+    "title": "Our values",
+    "description": "Lorem ipsum dolor sit amet consect adipisicing elit. Possimus        magnam voluptatum cupiditate veritatis in accusamus quisquam.",
+    "values": {
+      "be_world_class": "Be world-class",
+      "share_everything_you_know": "Share everything you know",
+      "always_learning": "Always learning",
+      "be_supportive": "Be supportive",
+      "take_responsibility": "Take responsibility",
+      "enjoy_downtime": "Enjoy downtime"
+    }
+  },
+ "trusted_by_the_world_most_innovative_teams":" Trusted by the world’s most innovative teams",
+  "our_team": "Our team",
+  "our_team_description": " Sit facilis neque ab nulla vel. Cum eos in laudantium. Temporibus eos totam in dolorum. Nemo vel facere repellendus ut eos dolores similique."
 }
