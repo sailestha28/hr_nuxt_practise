@@ -1,0 +1,1 @@
+const e="hello en",l={hello:e},n="hello jp",a={hello:n},o=()=>({legacy:!1,locales:[{code:"en-US",name:"English",iso:"en-US",file:"en-EN.js"},{code:"jp-JP",name:"Japan",iso:"jp-JP",file:"jp-JP.json"}],defaultLocale:"en-US",lazy:!0,strategy:"prefix_except_default",langDir:"locales",vueI18n:{fallbackLocale:"en-US"},messages:{en:l,jp:a}});export{o as default};
