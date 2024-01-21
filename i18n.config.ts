@@ -1,37 +1,32 @@
-import en from './locales/en-EN.json'
-import jp from './locales/jp-JP.json'
+import english from './locales/en-US.json'
+import japanese from './locales/jp-JP.json'
 
-const availableLocales = {
-    en: en,
-    jp: jp
-}
 export default defineI18nConfig(() => ({
     legacy: false,
-    messages: {
-        en: en,
-        jp: jp
-    },
     locales: [
         {
-            code: "en",
+            code: 'en-US',
             name: "English",
             iso: 'en-US',
-            file: 'en.js'
+            file: 'en-EN.js'
         },
         {
-            code: "jp",
+            code: 'jp-JP',
             name:"Japan",
             iso: 'jp-JP',
             file: 'jp-JP.json'
         }
     ],
-    defaultLocale: 'en',
+    defaultLocale:'en-US',
     lazy: true,
     strategy: 'prefix_except_default',
     langDir: 'locales',
     vueI18n: {
-        fallbackLocale: "en",
-        messages: availableLocales
-    }
+        fallbackLocale:'en-US'
+    },
+        messages: {
+        en: english,
+        jp: japanese
+    },
 
 }))

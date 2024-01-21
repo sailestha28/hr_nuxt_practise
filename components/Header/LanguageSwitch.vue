@@ -1,48 +1,12 @@
-<script setup lang="ts">
-import {Icon} from '@iconify/vue'
-import {
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectItemIndicator,
-  SelectItemText,
-  SelectPortal,
-  SelectRoot,
-  SelectScrollDownButton,
-  SelectScrollUpButton,
-  SelectTrigger,
-  SelectValue,
-  SelectViewport,
-} from 'radix-vue'
-import {onMounted} from "vue";
-
-const nuxt_lang = useCookie<{ name: string }>('NUXT_LANG')
-const {availableLocales} = useI18n()
-const {locale} = useI18n()
-const router = useRouter()
-
-const handleChange = (item) => {
-
-  locale.value = item === "en" ? "en-US" : "jp-JP"
-  router.push(item === "en" ? "" : "jp")
-  nuxt_lang.value = locale.value
-}
-
-onMounted(()=>{
-const nuxt_lang = useCookie<{ name: string }>('NUXT_LANG')
-locale.value = nuxt_lang.value
-})
-
-
-</script>
-
 <template>
-  <SelectRoot @update:modelValue="handleChange">
+  <Layout >
+
+  <SelectRoot @update:modelValue="handleChange" v-model="lang">
     <SelectTrigger
         class="inline-flex min-w-[160px] items-center justify-between rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-grass11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-green9 outline-none"
         aria-label="Customise options"
     >
-      <SelectValue :placeholder="locale"/>
+      <SelectValue :placeholder="lang"/>
       <Icon icon="radix-icons:chevron-down" class="h-3.5 w-3.5"/>
     </SelectTrigger>
 
@@ -79,4 +43,47 @@ locale.value = nuxt_lang.value
       </SelectContent>
     </SelectPortal>
   </SelectRoot>
+  </Layout>
 </template>
+<script setup lang="ts">
+import {Icon} from '@iconify/vue'
+import {
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectItemIndicator,
+  SelectItemText,
+  SelectPortal,
+  SelectRoot,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectTrigger,
+  SelectValue,
+  SelectViewport,
+} from 'radix-vue'
+import {onMounted} from "vue";
+
+const nuxt_lang = useCookie<{ name: string }>('i18n_redirected')
+const {availableLocales} = useI18n()
+const {locale} = useI18n()
+const router = useRouter()
+const route: any = useRoute()
+
+const lang = ref('en')
+
+const handleChange = (item: string) => {
+  lang.value = item
+  locale.value = item === "en" ? "en-US" : "jp-JP"
+  router.push(item !== "en" ? "jp" : '')
+}
+
+onMounted(() => {
+  if (route.path.startsWith("/jp")) {
+    lang.value = "jp"
+    locale.value = "jp-JP"
+    router.push("jp")
+  }
+})
+
+
+</script>
