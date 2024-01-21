@@ -1,16 +1,35 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-
+// @ts-ignore
 export default defineNuxtConfig({
-    devtools: {enabled: true},
-    modules: [
-        '@nuxtjs/tailwindcss',
-        '@nuxtjs/i18n',
+  modules: ["@nuxtjs/i18n"],
+  i18n: {
+    /* module options */
+    lazy: true,
+    langDir: "locales",
+    strategy: "prefix_except_default",
+    locales: [
+      {
+        code: "en-US",
+        iso: "en-US",
+        name: "English(US)",
+        file: "en-US.json",
+      },
+      {
+        code: "es-ES",
+        iso: "es-ES",
+        name: "Español",
+        file: "es-ES.json",
+      },
+      {
+        code: "in-HI",
+        iso: "en-HI",
+        name: "हिंदी",
+        file: "in-HI.json",
+      },
     ],
-    i18n: {
-        vueI18n: './i18n.config.ts' // if you are using custom path, default
+    defaultLocale: "en-US",
+    vueI18n: {
+      fallbackLocale: "en-US",
     },
-    css: [
-        '~/assets/css/tailwind.css',
-        // 'lite-youtube-embed/src/lite-yt-embed.css',
-    ],
-})
+  },
+});

@@ -1,19 +1,35 @@
-
-
 <template>
   <div>
-
-    <div class="flex flex-col">
-      <div class="jb-w--10">
-        <LanguageSwitch/>
-      </div>
-      <Layout>
-        <p>{{ $t('hello') }}</p>
-      </Layout>
-    </div>
+    <NuxtPage />
+    <LangSwitcher style="padding-top: 90px" />
   </div>
 </template>
-<script setup>
-import LanguageSwitch from "~/components/Header/LanguageSwitch.vue";
 
+<style>
+body {
+  background-color: #f0f0f0;
+  display: grid;
+  place-content: center;
+  height: 100vh;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+a,
+a:visited {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 10px;
+  background-color: cadetblue;
+  border-radius: 5px;
+  font-size: 14px;
+  display: block;
+  margin-bottom: 50px;
+}
+a:hover {
+  background-color: rgb(23, 61, 62);
+}
+</style>
+<script setup lang="ts">
+import LangSwitcher from "./components/LangSwitcher.vue";
 </script>
