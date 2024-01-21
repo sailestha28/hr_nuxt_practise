@@ -84,16 +84,16 @@ const ENC_BACKTICK_RE = /%60/gi;
 const ENC_PIPE_RE = /%7c/gi;
 const ENC_SPACE_RE = /%20/gi;
 const ENC_SLASH_RE = /%2f/gi;
-function encode(text) {
+function encode$1(text) {
   return encodeURI("" + text).replace(ENC_PIPE_RE, "|");
 }
 function encodeQueryValue(input) {
-  return encode(typeof input === "string" ? input : JSON.stringify(input)).replace(PLUS_RE, "%2B").replace(ENC_SPACE_RE, "+").replace(HASH_RE, "%23").replace(AMPERSAND_RE, "%26").replace(ENC_BACKTICK_RE, "`").replace(ENC_CARET_RE, "^");
+  return encode$1(typeof input === "string" ? input : JSON.stringify(input)).replace(PLUS_RE, "%2B").replace(ENC_SPACE_RE, "+").replace(HASH_RE, "%23").replace(AMPERSAND_RE, "%26").replace(ENC_BACKTICK_RE, "`").replace(ENC_CARET_RE, "^");
 }
 function encodeQueryKey(text) {
   return encodeQueryValue(text).replace(EQUAL_RE, "%3D");
 }
-function decode(text = "") {
+function decode$1(text = "") {
   try {
     return decodeURIComponent("" + text);
   } catch {
@@ -101,13 +101,13 @@ function decode(text = "") {
   }
 }
 function decodePath(text) {
-  return decode(text.replace(ENC_SLASH_RE, "%252F"));
+  return decode$1(text.replace(ENC_SLASH_RE, "%252F"));
 }
 function decodeQueryKey(text) {
-  return decode(text.replace(PLUS_RE, " "));
+  return decode$1(text.replace(PLUS_RE, " "));
 }
 function decodeQueryValue(text) {
-  return decode(text.replace(PLUS_RE, " "));
+  return decode$1(text.replace(PLUS_RE, " "));
 }
 
 function parseQuery(parametersString = "") {
@@ -311,6 +311,138 @@ function stringifyParsedURL(parsed) {
   const host = parsed.host || "";
   const proto = parsed.protocol ? parsed.protocol + "//" : "";
   return proto + auth + host + pathname + search + hash;
+}
+
+const fieldContentRegExp = /^[\u0009\u0020-\u007E\u0080-\u00FF]+$/;
+function parse(str, options) {
+  if (typeof str !== "string") {
+    throw new TypeError("argument str must be a string");
+  }
+  const obj = {};
+  const opt = options || {};
+  const dec = opt.decode || decode;
+  let index = 0;
+  while (index < str.length) {
+    const eqIdx = str.indexOf("=", index);
+    if (eqIdx === -1) {
+      break;
+    }
+    let endIdx = str.indexOf(";", index);
+    if (endIdx === -1) {
+      endIdx = str.length;
+    } else if (endIdx < eqIdx) {
+      index = str.lastIndexOf(";", eqIdx - 1) + 1;
+      continue;
+    }
+    const key = str.slice(index, eqIdx).trim();
+    if (void 0 === obj[key]) {
+      let val = str.slice(eqIdx + 1, endIdx).trim();
+      if (val.codePointAt(0) === 34) {
+        val = val.slice(1, -1);
+      }
+      obj[key] = tryDecode(val, dec);
+    }
+    index = endIdx + 1;
+  }
+  return obj;
+}
+function serialize(name, value, options) {
+  const opt = options || {};
+  const enc = opt.encode || encode;
+  if (typeof enc !== "function") {
+    throw new TypeError("option encode is invalid");
+  }
+  if (!fieldContentRegExp.test(name)) {
+    throw new TypeError("argument name is invalid");
+  }
+  const encodedValue = enc(value);
+  if (encodedValue && !fieldContentRegExp.test(encodedValue)) {
+    throw new TypeError("argument val is invalid");
+  }
+  let str = name + "=" + encodedValue;
+  if (void 0 !== opt.maxAge && opt.maxAge !== null) {
+    const maxAge = opt.maxAge - 0;
+    if (Number.isNaN(maxAge) || !Number.isFinite(maxAge)) {
+      throw new TypeError("option maxAge is invalid");
+    }
+    str += "; Max-Age=" + Math.floor(maxAge);
+  }
+  if (opt.domain) {
+    if (!fieldContentRegExp.test(opt.domain)) {
+      throw new TypeError("option domain is invalid");
+    }
+    str += "; Domain=" + opt.domain;
+  }
+  if (opt.path) {
+    if (!fieldContentRegExp.test(opt.path)) {
+      throw new TypeError("option path is invalid");
+    }
+    str += "; Path=" + opt.path;
+  }
+  if (opt.expires) {
+    if (!isDate(opt.expires) || Number.isNaN(opt.expires.valueOf())) {
+      throw new TypeError("option expires is invalid");
+    }
+    str += "; Expires=" + opt.expires.toUTCString();
+  }
+  if (opt.httpOnly) {
+    str += "; HttpOnly";
+  }
+  if (opt.secure) {
+    str += "; Secure";
+  }
+  if (opt.priority) {
+    const priority = typeof opt.priority === "string" ? opt.priority.toLowerCase() : opt.priority;
+    switch (priority) {
+      case "low":
+        str += "; Priority=Low";
+        break;
+      case "medium":
+        str += "; Priority=Medium";
+        break;
+      case "high":
+        str += "; Priority=High";
+        break;
+      default:
+        throw new TypeError("option priority is invalid");
+    }
+  }
+  if (opt.sameSite) {
+    const sameSite = typeof opt.sameSite === "string" ? opt.sameSite.toLowerCase() : opt.sameSite;
+    switch (sameSite) {
+      case true:
+        str += "; SameSite=Strict";
+        break;
+      case "lax":
+        str += "; SameSite=Lax";
+        break;
+      case "strict":
+        str += "; SameSite=Strict";
+        break;
+      case "none":
+        str += "; SameSite=None";
+        break;
+      default:
+        throw new TypeError("option sameSite is invalid");
+    }
+  }
+  return str;
+}
+function isDate(val) {
+  return Object.prototype.toString.call(val) === "[object Date]" || val instanceof Date;
+}
+function tryDecode(str, decode2) {
+  try {
+    return decode2(str);
+  } catch {
+    return str;
+  }
+}
+function decode(str) {
+  return str.includes("%") ? decodeURIComponent(str) : str;
+}
+function encode(val) {
+  return encodeURIComponent(val);
 }
 
 const NODE_TYPES = {
@@ -527,25 +659,8 @@ function _routerNodeToTable(initialPath, initialNode) {
   return table;
 }
 
-function isPlainObject(value) {
-  if (value === null || typeof value !== "object") {
-    return false;
-  }
-  const prototype = Object.getPrototypeOf(value);
-  if (prototype !== null && prototype !== Object.prototype && Object.getPrototypeOf(prototype) !== null) {
-    return false;
-  }
-  if (Symbol.iterator in value) {
-    return false;
-  }
-  if (Symbol.toStringTag in value) {
-    return Object.prototype.toString.call(value) === "[object Module]";
-  }
-  return true;
-}
-
 function _defu(baseObject, defaults, namespace = ".", merger) {
-  if (!isPlainObject(defaults)) {
+  if (!_isPlainObject(defaults)) {
     return _defu(baseObject, {}, namespace, merger);
   }
   const object = Object.assign({}, defaults);
@@ -562,7 +677,7 @@ function _defu(baseObject, defaults, namespace = ".", merger) {
     }
     if (Array.isArray(value) && Array.isArray(object[key])) {
       object[key] = [...value, ...object[key]];
-    } else if (isPlainObject(value) && isPlainObject(object[key])) {
+    } else if (_isPlainObject(value) && _isPlainObject(object[key])) {
       object[key] = _defu(
         value,
         object[key],
@@ -574,6 +689,13 @@ function _defu(baseObject, defaults, namespace = ".", merger) {
     }
   }
   return object;
+}
+function _isPlainObject(value) {
+  if (value === null || typeof value !== "object") {
+    return false;
+  }
+  const prototype = Object.getPrototypeOf(value);
+  return (prototype === null || prototype === Object.prototype || Object.getPrototypeOf(prototype) === null) && !(Symbol.toStringTag in value) && !(Symbol.iterator in value);
 }
 function createDefu(merger) {
   return (...arguments_) => (
@@ -1388,7 +1510,7 @@ const RawBodySymbol = Symbol.for("h3RawBody");
 const PayloadMethods$1 = ["PATCH", "POST", "PUT", "DELETE"];
 function readRawBody(event, encoding = "utf8") {
   assertMethod(event, PayloadMethods$1);
-  const _rawBody = event._requestBody || event.web?.request?.body || event.node.req[RawBodySymbol] || event.node.req.rawBody || event.node.req.body;
+  const _rawBody = event._requestBody || event.web?.request?.body || event.node.req[RawBodySymbol] || event.node.req.body;
   if (_rawBody) {
     const promise2 = Promise.resolve(_rawBody).then((_resolved) => {
       if (Buffer.isBuffer(_resolved)) {
@@ -1517,6 +1639,33 @@ function sanitizeStatusCode(statusCode, defaultStatusCode = 200) {
     return defaultStatusCode;
   }
   return statusCode;
+}
+
+function parseCookies(event) {
+  return parse(event.node.req.headers.cookie || "");
+}
+function getCookie(event, name) {
+  return parseCookies(event)[name];
+}
+function setCookie(event, name, value, serializeOptions) {
+  const cookieStr = serialize(name, value, {
+    path: "/",
+    ...serializeOptions
+  });
+  let setCookies = event.node.res.getHeader("set-cookie");
+  if (!Array.isArray(setCookies)) {
+    setCookies = [setCookies];
+  }
+  setCookies = setCookies.filter((cookieValue) => {
+    return cookieValue && !cookieValue.startsWith(name + "=");
+  });
+  event.node.res.setHeader("set-cookie", [...setCookies, cookieStr]);
+}
+function deleteCookie(event, name, serializeOptions) {
+  setCookie(event, name, "", {
+    ...serializeOptions,
+    maxAge: 0
+  });
 }
 function splitCookiesString(cookiesString) {
   if (Array.isArray(cookiesString)) {
@@ -2635,7 +2784,8 @@ function createNodeFetch() {
 const fetch = globalThis.fetch || createNodeFetch();
 const Headers$1 = globalThis.Headers || s;
 const AbortController = globalThis.AbortController || i;
-createFetch$1({ fetch, Headers: Headers$1, AbortController });
+const ofetch = createFetch$1({ fetch, Headers: Headers$1, AbortController });
+const $fetch = ofetch;
 
 const nullBodyResponses = /* @__PURE__ */ new Set([101, 204, 205, 304]);
 function createCall(handle) {
@@ -2916,7 +3066,7 @@ function isUppercase(char = "") {
   if (NUMBER_CHAR_RE.test(char)) {
     return void 0;
   }
-  return char !== char.toLowerCase();
+  return char.toUpperCase() === char;
 }
 function splitByCase(str, separators) {
   const splitters = separators ?? STR_SPLITTERS;
@@ -3049,7 +3199,7 @@ function klona(x) {
 
 const inlineAppConfig = {
   "nuxt": {
-    "buildId": "a57fb8cf-709d-4f74-92fa-962dfd6176ea"
+    "buildId": "f368f7a8-a9d1-4a18-a37b-bdce648e7304"
   }
 };
 
@@ -3760,6 +3910,16 @@ function sha256base64(message) {
 function hash(object, options = {}) {
   const hashed = typeof object === "string" ? object : objectHash(object, options);
   return sha256base64(hashed).slice(0, 10);
+}
+
+function isEqual(object1, object2, hashOptions = {}) {
+  if (object1 === object2) {
+    return true;
+  }
+  if (objectHash(object1, hashOptions) === objectHash(object2, hashOptions)) {
+    return true;
+  }
+  return false;
 }
 
 function wrapToPromise(value) {
@@ -4889,7 +5049,6 @@ const errorHandler = (async function errorhandler(error, event) {
     statusMessage,
     message,
     stack: "",
-    // TODO: check and validate error.data for serialisation into query
     data: error.data
   };
   if (error.unhandled || error.fatal) {
@@ -4942,86 +5101,85 @@ const assets = {
   "/favicon.ico": {
     "type": "image/vnd.microsoft.icon",
     "etag": "\"10be-n8egyE9tcb7sKGr/pYCaQ4uWqxI\"",
-    "mtime": "2024-01-21T05:11:09.489Z",
+    "mtime": "2024-01-21T05:17:19.979Z",
     "size": 4286,
     "path": "../public/favicon.ico"
   },
-  "/_nuxt/entry.mb4wXw0J.js": {
+  "/_nuxt/entry.t6RkaiC9.js": {
     "type": "application/javascript",
-    "etag": "\"46f73-veh/eS/17FlBNLjugw6ZRPsgGJY\"",
-    "mtime": "2024-01-21T05:11:09.486Z",
-    "size": 290675,
-    "path": "../public/_nuxt/entry.mb4wXw0J.js"
-  },
-  "/_nuxt/error-404.QuoJYGAN.js": {
-    "type": "application/javascript",
-    "etag": "\"1931-Hf5uARvkCPMziSy2R9SgiZMOG1k\"",
-    "mtime": "2024-01-21T05:11:09.486Z",
-    "size": 6449,
-    "path": "../public/_nuxt/error-404.QuoJYGAN.js"
+    "etag": "\"4733f-cQnIiaRxWjbbjt89SQ/x71lC18o\"",
+    "mtime": "2024-01-21T05:17:19.977Z",
+    "size": 291647,
+    "path": "../public/_nuxt/entry.t6RkaiC9.js"
   },
   "/_nuxt/error-404.TsBWxgAa.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"e68-hlsnPvOJNEEWVEjbQnHBf9EhOdM\"",
-    "mtime": "2024-01-21T05:11:09.486Z",
+    "mtime": "2024-01-21T05:17:19.977Z",
     "size": 3688,
     "path": "../public/_nuxt/error-404.TsBWxgAa.css"
   },
-  "/_nuxt/error-500.KzqeWcj2.js": {
+  "/_nuxt/error-404.kSNgnfKr.js": {
     "type": "application/javascript",
-    "etag": "\"77e-48zS4AK6iXR3VSrH5dW/pw5h8Pw\"",
-    "mtime": "2024-01-21T05:11:09.486Z",
+    "etag": "\"1931-/SxD6/o72S+Fph3VVbqXqHRO0lw\"",
+    "mtime": "2024-01-21T05:17:19.977Z",
+    "size": 6449,
+    "path": "../public/_nuxt/error-404.kSNgnfKr.js"
+  },
+  "/_nuxt/error-500.lR4inLmB.js": {
+    "type": "application/javascript",
+    "etag": "\"77e-dnyJy1iP8faBInoV8p9WCa9kjJo\"",
+    "mtime": "2024-01-21T05:17:19.977Z",
     "size": 1918,
-    "path": "../public/_nuxt/error-500.KzqeWcj2.js"
+    "path": "../public/_nuxt/error-500.lR4inLmB.js"
   },
   "/_nuxt/error-500.s2VBNbvW.css": {
     "type": "text/css; charset=utf-8",
     "etag": "\"7e0-QP983DB9m1oiDr87r1V1AYEhrfo\"",
-    "mtime": "2024-01-21T05:11:09.486Z",
+    "mtime": "2024-01-21T05:17:19.977Z",
     "size": 2016,
     "path": "../public/_nuxt/error-500.s2VBNbvW.css"
   },
   "/_nuxt/i18n.config.YnACRcMP.js": {
     "type": "application/javascript",
     "etag": "\"167-x685ikjAWtwkCf+4SCESm+/8HFI\"",
-    "mtime": "2024-01-21T05:11:09.486Z",
+    "mtime": "2024-01-21T05:17:19.977Z",
     "size": 359,
     "path": "../public/_nuxt/i18n.config.YnACRcMP.js"
   },
-  "/_nuxt/vue.f36acd1f.4Asse2HL.js": {
+  "/_nuxt/vue.f36acd1f.ztOPliV5.js": {
     "type": "application/javascript",
-    "etag": "\"186-WYwnbkmk8liWCQzQXPLka4xgpyE\"",
-    "mtime": "2024-01-21T05:11:09.486Z",
+    "etag": "\"186-jIcB3UWmg9fV0oGUl8Noct1MsQM\"",
+    "mtime": "2024-01-21T05:17:19.977Z",
     "size": 390,
-    "path": "../public/_nuxt/vue.f36acd1f.4Asse2HL.js"
+    "path": "../public/_nuxt/vue.f36acd1f.ztOPliV5.js"
   },
   "/_nuxt/builds/latest.json": {
     "type": "application/json",
-    "etag": "\"47-/373GCT7fn6Lp9X9Eq30N4n4fcY\"",
-    "mtime": "2024-01-21T05:11:09.484Z",
+    "etag": "\"47-KirDxzyOkJtajKoN3gXRgH9lG78\"",
+    "mtime": "2024-01-21T05:17:19.975Z",
     "size": 71,
     "path": "../public/_nuxt/builds/latest.json"
   },
-  "/_nuxt/builds/meta/a57fb8cf-709d-4f74-92fa-962dfd6176ea.json": {
+  "/_nuxt/builds/meta/f368f7a8-a9d1-4a18-a37b-bdce648e7304.json": {
     "type": "application/json",
-    "etag": "\"8b-DGWqb65IxxLe6Pj5OlFUZM92HlM\"",
-    "mtime": "2024-01-21T05:11:09.482Z",
+    "etag": "\"8b-u7VwSgCvKQ4oJxYdISPSOoizhE8\"",
+    "mtime": "2024-01-21T05:17:19.973Z",
     "size": 139,
-    "path": "../public/_nuxt/builds/meta/a57fb8cf-709d-4f74-92fa-962dfd6176ea.json"
+    "path": "../public/_nuxt/builds/meta/f368f7a8-a9d1-4a18-a37b-bdce648e7304.json"
   }
 };
 
-const _DRIVE_LETTER_START_RE = /^[A-Za-z]:\//;
 function normalizeWindowsPath(input = "") {
-  if (!input) {
+  if (!input || !input.includes("\\")) {
     return input;
   }
-  return input.replace(/\\/g, "/").replace(_DRIVE_LETTER_START_RE, (r) => r.toUpperCase());
+  return input.replace(/\\/g, "/");
 }
 const _IS_ABSOLUTE_RE = /^[/\\](?![/\\])|^[/\\]{2}(?!\.)|^[A-Za-z]:[/\\]/;
 const _DRIVE_LETTER_RE = /^[A-Za-z]:$/;
 function cwd() {
-  if (typeof process !== "undefined" && typeof process.cwd === "function") {
+  if (typeof process !== "undefined") {
     return process.cwd().replace(/\\/g, "/");
   }
   return "/";
@@ -5204,7 +5362,7 @@ const _f4b49z = eventHandler((event) => {
   return readAsset(id);
 });
 
-const _lazy_GR8IrT = () => import('../app/renderer.mjs');
+const _lazy_GR8IrT = () => import('../handlers/renderer.mjs');
 
 const handlers = [
   { route: '', handler: _f4b49z, lazy: false, middleware: true, method: undefined },
@@ -5583,5 +5741,5 @@ trapUnhandledNodeErrors();
 setupGracefulShutdown(listener, nitroApp);
 const nodeServer = {};
 
-export { send as a, setResponseStatus as b, setResponseHeaders as c, useRuntimeConfig as d, eventHandler as e, getQuery as f, getResponseStatus as g, createError$1 as h, getRouteRules as i, joinURL as j, getResponseStatusText as k, nodeServer as n, setResponseHeader as s, useNitroApp as u };
+export { $fetch as $, send as a, setResponseStatus as b, setResponseHeaders as c, useRuntimeConfig as d, eventHandler as e, getQuery as f, getResponseStatus as g, createError$1 as h, getRouteRules as i, joinURL as j, getResponseStatusText as k, sanitizeStatusCode as l, createHooks as m, getRequestHeader as n, destr as o, parse as p, isEqual as q, setCookie as r, setResponseHeader as s, getCookie as t, useNitroApp as u, deleteCookie as v, getRequestHeaders as w, nodeServer as x };
 //# sourceMappingURL=node-server.mjs.map
