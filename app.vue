@@ -1,35 +1,14 @@
 <template>
   <div>
+    <Header/>
     <NuxtPage />
-    <LangSwitcher style="padding-top: 90px" />
+    <Footer/>
   </div>
 </template>
 
-<style>
-body {
-  background-color: #f0f0f0;
-  display: grid;
-  place-content: center;
-  height: 100vh;
-  text-align: center;
-  font-family: sans-serif;
-}
+<script setup>
 
-a,
-a:visited {
-  color: #fff;
-  text-decoration: none;
-  padding: 8px 10px;
-  background-color: cadetblue;
-  border-radius: 5px;
-  font-size: 14px;
-  display: block;
-  margin-bottom: 50px;
-}
-a:hover {
-  background-color: rgb(23, 61, 62);
-}
-</style>
-<script setup lang="ts">
-import LangSwitcher from "./components/LangSwitcher.vue";
+import Header from "~/components/partials/Header.vue";
+import Footer from "~/components/partials/Footer.vue";
 </script>
+

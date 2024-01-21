@@ -1,9 +1,16 @@
-<script setup lang="ts">
-const localPath = useLocalePath();
-</script>
+
 <template>
   <div>
-    <h1>{{ $t("home_title") }}</h1>
-    <NuxtLink :to="localPath('/about')">{{ $t("about_btn") }}</NuxtLink>
+
+    <Banner/>
+    <PeopleInformation/>
+    <Testimonials/>
+    <Faq/>
   </div>
 </template>
+
+<script setup lang="ts">
+import Faq from "~/components/Faq.vue";
+import Testimonials from "~/components/Testimonials.vue";
+
+</script>
