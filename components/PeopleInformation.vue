@@ -1,7 +1,9 @@
 <template>
   <section class="pb-20">
     <Container>
-       <h3 class="font-bold text-lg sm:text-xl lg:text-3xl text-center mb-10">Contact Person</h3>
+       <h3 class="font-bold text-lg sm:text-xl lg:text-3xl text-center mb-10">
+         {{$t('contact_person')}}
+       </h3>
       <GridLists :people="people"/>
     </Container>
   </section>
@@ -25,7 +27,7 @@ const people: person[] = [
   {
     name: 'Jane Cooper',
     title: 'Regional Paradigm Technician',
-    role: 'Admin',
+    role: 'admin',
     email: 'janecooper@example.com',
     telephone: '+1-202-555-0170',
     imageUrl:
@@ -34,7 +36,7 @@ const people: person[] = [
   {
     name: 'Test Cooper',
     title: 'Regional Paradigm Technician',
-    role: 'Admin',
+    role: 'user',
     email: 'janecooper@example.com',
     telephone: '+1-202-555-0170',
     imageUrl:
@@ -43,7 +45,7 @@ const people: person[] = [
   {
     name: 'People Cooper',
     title: 'Regional Paradigm Technician',
-    role: 'Admin',
+    role: 'admin',
     email: 'janecooper@example.com',
     telephone: '+1-202-555-0170',
     imageUrl:
@@ -51,7 +53,7 @@ const people: person[] = [
   },  {
     name: 'People Cooper',
     title: 'Regional Paradigm Technician',
-    role: 'Admin',
+    role: 'user',
     email: 'janecooper@example.com',
     telephone: '+1-202-555-0170',
     imageUrl:
@@ -60,7 +62,7 @@ const people: person[] = [
  {
     name: 'People Cooper',
     title: 'Regional Paradigm Technician',
-    role: 'Admin',
+    role: 'user',
     email: 'janecooper@example.com',
     telephone: '+1-202-555-0170',
     imageUrl:

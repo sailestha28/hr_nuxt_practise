@@ -1,4 +1,86 @@
 {
-    "home": "Home jp",
-    "about": "About jp"
+  "home": "ホーム",
+  "about": "約",
+  "get_started": "開始する",
+  "learn_more": "もっと学ぶ",
+  "read_more": "もっと読む",
+  "contact_person": "担当者",
+  "admin": "管理者",
+  "email": "Eメール",
+  "call": "電話",
+  "testimonials": "お客様の声",
+  "faq": "よくある質問",
+  "solutions": "ソリューション",
+  "support": "サポート",
+  "legal": "法的事項",
+  "subscribe_to_our_newsletter": "ニュースレターに登録",
+  "subscribe": "登録",
+  "enter_your_email": "メールアドレスを入力",
+  "banner": {
+    "title": "オンラインビジネスを豊かにするデータ",
+    "description": "Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.",
+    "announcement_title": "次の資金調達を発表します。"
+  },
+  "newsletter_description": "週に一度、あなたの受信トレイに送信される最新のニュース、記事、リソース。\n メールアドレス",
+  "add_to_favorites": "お気に入りに追加",
+  "embed": "埋め込む",
+  "report_content": "コンテンツを報告",
+  "open_options": "オプションを開く",
+  "team": "チーム",
+  "customer_support": "カスタマーサポート",
+  "cant_find_answer": "探している回答が見つからない場合は、お問い合わせください。",
+  "marketing": "マーケティング",
+  "analytics": "分析",
+  "commerce": "コマース",
+  "insights": "洞察",
+  "pricing": "価格",
+  "documentation": "ドキュメンテーション",
+  "guides": "ガイド",
+  "api_status": "APIステータス",
+  "blog": "ブログ",
+  "jobs": "求人",
+  "press": "プレス",
+  "partners": "パートナー",
+  "claim": "クレーム",
+  "privacy": "プライバシー",
+  "terms": "利用規約",
+  "facebook": "Facebook",
+  "the_latest_news_articles_and_resources": "週に一度、あなたの受信トレイに送信される最新のニュース、記事、リソース。",
+  "email_address": "メールアドレス",
+  "company": "会社",
+  "user": "ユーザー",
+  "language": "言語",
+  "about_page": {
+    "title": "人々がつながる方法を変えています。",
+    "description": "Cupidatat minim id magna ipsum sint dolor qui. Sunt sit in quis cupidatat mollit aute velit. Et labore commodo nulla aliqua proident mollit ullamco exercitation tempor. Sint aliqua anim nulla sunt mollit id pariatur in voluptate cillum. Eu voluptate tempor esse minim amet fugiat veniam occaecat aliqua.",
+    "blogs": {
+      "title": "ブログから",
+      "description": " Vel dolorem qui facilis soluta sint aspernatur totam cumque."
+    }
+  },
+  "our_mission": {
+    "title": "私たちの使命",
+    "sub_title": "Aliquet nec orci mattis amet quisque ullamcorper neque, nibh  sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam  nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien.",
+    "description": " <p>Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed  vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit                  neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis s semper sed amet vitae sed turpis id.</p>                <p class='mt-10'>Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit                  molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et                  ultrices hac adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.</p>"
+  },
+  "stats": {
+    "transactions_every_24_hours": "24時間ごとの取引",
+    "assets_under_holding": "保有中の資産",
+    "new_users_annually":"年間新規ユーザー数"
+  },
+  "our_values": {
+    "title": "私たちの価値観",
+    "description": "Lorem ipsum dolor sit amet consect adipisicing elit. Possimus        magnam voluptatum cupiditate veritatis in accusamus quisquam.",
+    "values": {
+      "be_world_class": "ワールドクラスである",
+      "share_everything_you_know": "知っていることをすべて共有する",
+      "always_learning": "常に学ぶ",
+      "be_supportive": "サポートする",
+      "take_responsibility": "責任を持つ",
+      "enjoy_downtime": "ダウンタイムを楽しむ"
+    }
+  },
+ "trusted_by_the_world_most_innovative_teams":" 世界で最も革新的なチームに信頼されています",
+  "our_team": "私たちのチーム",
+  "our_team_description": " Sit facilis neque ab nulla vel. Cum eos in laudantium. Temporibus eos totam in dolorum. Nemo vel facere repellendus ut eos dolores similique."
 }

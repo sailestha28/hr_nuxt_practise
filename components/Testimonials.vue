@@ -1,6 +1,8 @@
 <template>
   <Container>
-      <h3 class="font-bold text-lg sm:text-xl lg:text-3xl text-center mb-10">Testimonials</h3>
+      <h3 class="font-bold text-lg sm:text-xl lg:text-3xl text-center mb-10">
+        {{$t('testimonials')}}
+      </h3>
     <Swiper
         :modules="[SwiperAutoplay, SwiperEffectCreative]"
         :slides-per-view="1"
@@ -44,7 +46,9 @@
               <Menu as="div" class="relative inline-block text-left">
                 <div>
                   <MenuButton class="-m-2 flex items-center rounded-full p-2 text-gray-400 hover:text-gray-600">
-                    <span class="sr-only">Open options</span>
+                    <span class="sr-only">
+                      {{$t("open_options")}}
+                    </span>
                     <EllipsisVerticalIcon class="h-5 w-5" aria-hidden="true"/>
                   </MenuButton>
                 </div>
@@ -62,21 +66,23 @@
                         <a href="#"
                            :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'flex px-4 py-2 text-sm']">
                           <StarIcon class="mr-3 h-5 w-5 text-gray-400" aria-hidden="true"/>
-                          <span>Add to favorites</span>
+                          <span>{{$t('add_to_favorites')}}</span>
                         </a>
                       </MenuItem>
                       <MenuItem v-slot="{ active }">
                         <a href="#"
                            :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'flex px-4 py-2 text-sm']">
                           <CodeBracketIcon class="mr-3 h-5 w-5 text-gray-400" aria-hidden="true"/>
-                          <span>Embed</span>
+                          <span>{{$t('embed')}}</span>
                         </a>
                       </MenuItem>
                       <MenuItem v-slot="{ active }">
                         <a href="#"
                            :class="[active ? 'bg-gray-100 text-gray-900' : 'text-gray-700', 'flex px-4 py-2 text-sm']">
                           <FlagIcon class="mr-3 h-5 w-5 text-gray-400" aria-hidden="true"/>
-                          <span>Report content</span>
+                          <span>
+                            {{ $t('report_content')}}
+                          </span>
                         </a>
                       </MenuItem>
                     </div>

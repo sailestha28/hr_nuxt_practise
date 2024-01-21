@@ -21,7 +21,7 @@ export default defineNuxtConfig({
             {
                 code: "jp-JP",
                 iso: "jp-JP",
-                name: "Japanese",
+                name: "日本語",
                 file: "jp-JP.json",
             },
 

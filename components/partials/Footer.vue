@@ -6,49 +6,78 @@
         <div class="grid grid-cols-2 gap-8 xl:col-span-2">
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
-              <h3 class="text-sm font-semibold leading-6 text-white">Solutions</h3>
+              <h3 class="text-sm font-semibold leading-6 text-white">
+                {{$t("solutions")}}
+              </h3>
               <ul role="list" class="mt-6 space-y-4">
                 <li v-for="item in navigation.solutions" :key="item.name">
-                  <a :href="item.href" class="text-sm leading-6 text-gray-300 hover:text-white">{{ item.name }}</a>
+                  <a :href="item.href" class="text-sm leading-6 text-gray-300 hover:text-white">
+                    {{ $t(item.name) }}
+                  </a>
                 </li>
               </ul>
             </div>
             <div class="mt-10 md:mt-0">
-              <h3 class="text-sm font-semibold leading-6 text-white">Support</h3>
+              <h3 class="text-sm font-semibold leading-6 text-white">
+                {{$t("support")}}
+              </h3>
               <ul role="list" class="mt-6 space-y-4">
                 <li v-for="item in navigation.support" :key="item.name">
-                  <a :href="item.href" class="text-sm leading-6 text-gray-300 hover:text-white">{{ item.name }}</a>
+                  <a :href="item.href" class="text-sm leading-6 text-gray-300 hover:text-white">
+                     {{ $t(item.name) }}
+                  </a>
                 </li>
               </ul>
             </div>
           </div>
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
-              <h3 class="text-sm font-semibold leading-6 text-white">Company</h3>
+              <h3 class="text-sm font-semibold leading-6 text-white">
+                {{$t('company')}}
+              </h3>
               <ul role="list" class="mt-6 space-y-4">
                 <li v-for="item in navigation.company" :key="item.name">
-                  <a :href="item.href" class="text-sm leading-6 text-gray-300 hover:text-white">{{ item.name }}</a>
+                  <a :href="item.href" class="text-sm leading-6 text-gray-300 hover:text-white">
+                     {{ $t(item.name) }}
+                  </a>
                 </li>
               </ul>
             </div>
             <div class="mt-10 md:mt-0">
-              <h3 class="text-sm font-semibold leading-6 text-white">Legal</h3>
+              <h3 class="text-sm font-semibold leading-6 text-white">
+                 {{ $t("legal") }}
+
+              </h3>
               <ul role="list" class="mt-6 space-y-4">
                 <li v-for="item in navigation.legal" :key="item.name">
-                  <a :href="item.href" class="text-sm leading-6 text-gray-300 hover:text-white">{{ item.name }}</a>
+                  <a :href="item.href" class="text-sm leading-6 text-gray-300 hover:text-white">
+                     {{ $t(item.name) }}
+                  </a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
         <div class="mt-10 xl:mt-0">
-          <h3 class="text-sm font-semibold leading-6 text-white">Subscribe to our newsletter</h3>
-          <p class="mt-2 text-sm leading-6 text-gray-300">The latest news, articles, and resources, sent to your inbox weekly.</p>
+          <h3 class="text-sm font-semibold leading-6 text-white">
+         {{$t('subscribe_to_our_newsletter')}}
+          </h3>
+          <p class="mt-2 text-sm leading-6 text-gray-300">
+{{$t('the_latest_news_articles_and_resources')}}
+          </p>
           <form class="mt-6 sm:flex sm:max-w-md">
-            <label for="email-address" class="sr-only">Email address</label>
-            <input type="email" name="email-address" id="email-address" autocomplete="email" required="" class="w-full min-w-0 appearance-none rounded-md border-0 bg-white/5 px-3 py-1.5 text-base text-white shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:w-64 sm:text-sm sm:leading-6 xl:w-full" placeholder="Enter your email" />
+            <label for="email-address" class="sr-only">
+              {{$t('email_address')}}
+            </label>
+            <input type="email" name="email-address"
+                   id="email-address" autocomplete="email" required=""
+                   class="w-full min-w-0 appearance-none rounded-md border-0 bg-white/5 px-3 py-1.5 text-base text-white shadow-sm ring-1 ring-inset ring-white/10 placeholder:text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:w-64 sm:text-sm sm:leading-6 xl:w-full"
+                   :placeholder="$t('enter_your_email')" />
             <div class="mt-4 sm:ml-4 sm:mt-0 sm:flex-shrink-0">
-              <button type="submit" class="flex w-full items-center justify-center rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Subscribe</button>
+              <button type="submit"
+                      class="flex w-full items-center justify-center rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+                {{ $t("subscribe")}}
+              </button>
             </div>
           </form>
         </div>
@@ -86,32 +115,32 @@ interface Navigation {
 // Data for the navigation sections
 const navigation: Navigation = {
   solutions: [
-    { name: 'Marketing', href: '#' },
-    { name: 'Analytics', href: '#' },
-    { name: 'Commerce', href: '#' },
-    { name: 'Insights', href: '#' },
+    { name: 'marketing', href: '#' },
+    { name: 'analytics', href: '#' },
+    { name: 'commerce', href: '#' },
+    { name: 'insights', href: '#' },
   ],
   support: [
-    { name: 'Pricing', href: '#' },
-    { name: 'Documentation', href: '#' },
-    { name: 'Guides', href: '#' },
-    { name: 'API Status', href: '#' },
+    { name: 'pricing', href: '#' },
+    { name: 'documentation', href: '#' },
+    { name: 'guides', href: '#' },
+    { name: 'api_status', href: '#' },
   ],
   company: [
-    { name: 'About', href: '#' },
-    { name: 'Blog', href: '#' },
-    { name: 'Jobs', href: '#' },
-    { name: 'Press', href: '#' },
-    { name: 'Partners', href: '#' },
+    { name: 'about', href: '#' },
+    { name: 'blog', href: '#' },
+    { name: 'jobs', href: '#' },
+    { name: 'press', href: '#' },
+    { name: 'partners', href: '#' },
   ],
   legal: [
-    { name: 'Claim', href: '#' },
-    { name: 'Privacy', href: '#' },
-    { name: 'Terms', href: '#' },
+    { name: 'claim', href: '#' },
+    { name: 'privacy', href: '#' },
+    { name: 'terms', href: '#' },
   ],
   social: [
     {
-      name: 'Facebook',
+      name: 'facebook',
       href: '#',
       icon: defineComponent({
         render: () =>
